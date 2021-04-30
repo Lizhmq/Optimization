@@ -46,11 +46,13 @@ ETA = 1e-5
 P_STAR = 2 * M
 alpha, beta = None, None
 
-def grad_descent(x, func, grad_func, alpha=0.5, beta=0.9):
+def steepest_descent(x, func, grad_func, alpha=0.5, beta=0.9):
     grad_list, step_list, f_list = [], [], []
     while True:
         grad = grad_func(x)
-        dir = -grad
+        dir = np.zeros(grad.shape)
+        i = np.argmax(np.abs(grad))
+        dir[i] = -grad[i]
         g_norm = norm(grad)
         if g_norm <= ETA:       # stop criteria
             break
@@ -87,28 +89,28 @@ values = np.zeros((len(alphas), len(betas)))
 
 for i in range(len(alphas)):
     for j in range(len(betas)):
-        gl, sl, fl = grad_descent(x0, func, grad_func, alpha=alphas[i], beta=betas[j])
+        gl, sl, fl = steepest_descent(x0, func, grad_func, alpha=alphas[i], beta=betas[j])
         steps[i, j] = len(gl)
         values[i, j] = fl[-1]
 
 print(steps, values)
 
-alpha, beta = 0.3, 0.3
-gl, sl, fl = grad_descent(x0, func, grad_func, alpha, beta)
+alpha, beta = 0.1, 0.5
+gl, sl, fl = steepest_descent(x0, func, grad_func, alpha, beta)
 plt.figure(figsize=(6, 4))
 plt.plot(list(range(len(gl))), gl)
 plt.xlabel("steps")
 plt.ylabel("gradient norm")
-plt.savefig("gd-gradient.png", bbox_inches="tight")
+plt.savefig("st-gradient.png", bbox_inches="tight")
 
 plt.figure(figsize=(6, 4))
 plt.plot(list(range(len(gl))), sl)
 plt.xlabel("steps")
 plt.ylabel("step length")
-plt.savefig("gd-step_l.png", bbox_inches="tight")
+plt.savefig("st-step_l.png", bbox_inches="tight")
 
 plt.figure(figsize=(6, 4))
 plt.plot(list(range(len(gl))), [v - P_STAR for v in fl])
 plt.xlabel("steps")
 plt.ylabel("f-p*")
-plt.savefig("gd-f-p.png", bbox_inches="tight")
+plt.savefig("st-f-p.png", bbox_inches="tight")
