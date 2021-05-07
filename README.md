@@ -4,8 +4,8 @@
 
 Gradient descent algorithm with backtracking line search.
 
-<img src="pics/gradient_descent.jpg" style="zoom:50%;" />
-<img src="pics/backtracking.jpg" style="zoom: 50%;" />
+<img src="pics/demo/gradient_descent.jpg" style="zoom:33%;" />
+<img src="pics/demo/backtracking.jpg" style="zoom: 33%;" />
 
 Example function:
 $$f(x) = \sum_{i=1}^m[exp(a_i^Tx)+exp(-a_i^Tx)]$$
@@ -26,15 +26,15 @@ Plot figures:
 
 * $\|\nabla f(\mathbf x)\|_2$
 
-  <img src="gd-gradient.png" style="zoom: 67%;" />
+  <img src="pics/hw8/gd-gradient.png" style="zoom: 33%;" />
 
 * step length
 
-  <img src="gd-step_l.png" style="zoom:67%;" />
+  <img src="pics/hw8/gd-step_l.png" style="zoom:33%;" />
 
 * $f-p*$
 
-  <img src="gd-f-p.png" style="zoom:67%;" />
+  <img src="pics/hw8/gd-f-p.png" style="zoom:33%;" />
 
 ### Steepest Descent
 
@@ -44,7 +44,7 @@ $\Delta\mathbf{x}_{nsd}=\arg\min_\mathbf{v}\{\nabla f(\mathbf{x})^T\mathbf{v}|\|
 
 Set $\Delta{\mathbf{x}_{i}} = -sign(\nabla f(\mathbf{x})_i)$ if $i = \arg\max_i\|\nabla f(\mathbf{x})_i\|$.
 
-<img src="pics/steepest_descent.jpg" style="zoom: 50%;" />
+<img src="pics/demo/steepest_descent.jpg" style="zoom: 33%;" />
 
 Example function:
 $$f(x) = \sum_{i=1}^m[exp(a_i^Tx)+exp(-a_i^Tx)]$$
@@ -73,21 +73,21 @@ Plot figures:
 
 * $\|\nabla f(\mathbf x)\|_2$
 
-  <img src="st-gradient.png" style="zoom: 67%;" />
+  <img src="pics/hw8/st-gradient.png" style="zoom: 33%;" />
 
 * step length
 
-  <img src="st-step_l.png" style="zoom:67%;" />
+  <img src="pics/hw8/st-step_l.png" style="zoom:33%;" />
 
 * $f-p*$
 
-  <img src="st-f-p.png" style="zoom:67%;" />
+  <img src="pics/hw8/st-f-p.png" style="zoom:33%;" />
 
 ### Newton Methods
 
 #### Damped Newton Method
 
-<img src="pics/damped_newton.jpg" alt="Damped Newtion" style="zoom:50%;" />
+<img src="pics/demo/damped_newton.jpg" alt="Damped Newtion" style="zoom:33%;" />
 
 Example function:
 $$f(\mathbf{x}) = 100(x_2-x_1^2)^2+(1-x_1)^2$$
@@ -109,7 +109,7 @@ Plot figure:
 
 * $log(f(\mathbf{x}^{(k)})-p^*)$
 
-  <img src="dm-log(f-p).png" style="zoom:67%;" />
+  <img src="pics/hw8/dm-log(f-p).png" style="zoom:33%;" />
 
 From the figure, we can see that damped newton method converges fast when it is close to the optimal solution.
 
@@ -117,7 +117,7 @@ Damped Newton time: 0.0020020008087158203s
 
 #### Gauss-Newton Method
 
-<img src="pics/gauss_newton.jpg" style="zoom:50%;" />
+<img src="pics/demo/gauss_newton.jpg" style="zoom:33%;" />
 
 ```python
 dir = -solve_linear(np.dot(J(x).T, J(x)), np.dot(J(x).T, r(x)))
@@ -127,4 +127,4 @@ Gauss-Newton time: 0.0s
 
 The algorithm converges in 3 steps.
 
-![](gn-log(f-p).png)
+<img src="pics/hw8/gn-log(f-p).png" style="zoom:33%;" />
