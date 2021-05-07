@@ -4,8 +4,8 @@
 
 Gradient descent algorithm with backtracking line search.
 
-<img src="pics/demo/gradient_descent.jpg" style="zoom:33%;" />
-<img src="pics/demo/backtracking.jpg" style="zoom: 33%;" />
+<img src="pics/demo/gradient_descent.jpg" style="zoom:20%;" />
+<img src="pics/demo/backtracking.jpg" style="zoom: 20%;" />
 
 Example function:
 $$f(x) = \sum_{i=1}^m[exp(a_i^Tx)+exp(-a_i^Tx)]$$
@@ -44,7 +44,7 @@ $\Delta\mathbf{x}_{nsd}=\arg\min_\mathbf{v}\{\nabla f(\mathbf{x})^T\mathbf{v}|\|
 
 Set $\Delta{\mathbf{x}_{i}} = -sign(\nabla f(\mathbf{x})_i)$.
 
-<img src="pics/demo/steepest_descent.jpg" style="zoom: 33%;" />
+<img src="pics/demo/steepest_descent.jpg" style="zoom: 20%;" />
 
 Example function:
 $$f(x) = \sum_{i=1}^m[exp(a_i^Tx)+exp(-a_i^Tx)]$$
@@ -87,7 +87,7 @@ Plot figures:
 
 #### Damped Newton Method
 
-<img src="pics/demo/damped_newton.jpg" alt="Damped Newtion" style="zoom:33%;" />
+<img src="pics/demo/damped_newton.jpg" alt="Damped Newtion" style="zoom:20%;" />
 
 Example function:
 $$f(\mathbf{x}) = 100(x_2-x_1^2)^2+(1-x_1)^2$$
@@ -117,7 +117,7 @@ Damped Newton time: 0.0020020008087158203s
 
 #### Gauss-Newton Method
 
-<img src="pics/demo/gauss_newton.jpg" style="zoom:33%;" />
+<img src="pics/demo/gauss_newton.jpg" style="zoom:20%;" />
 
 ```python
 dir = -solve_linear(np.dot(J(x).T, J(x)), np.dot(J(x).T, r(x)))
@@ -128,3 +128,60 @@ Gauss-Newton time: 0.0s
 The algorithm converges in 3 steps.
 
 <img src="pics/hw8/gn-log(f-p).png" style="zoom:33%;" />
+
+
+### Quasi-Newton Methods
+
+#### Davidon-Fletcher-Powell (DFP)
+
+Algorithm:
+
+<img src="pics/demo/quasi-dfp.jpg" style="zoom:20%;" />
+
+Example function:
+
+$f(\mathbf{x}) = x_1^4/4 + x_2^2/2 - x_1x_2+x_1-x_2$
+
+Code: dfp.py
+
+The initial point $(0,0)^T$ converges to $(-1, 0)^T$ while $(1.5, 1)^T$ converges to $(1, 2)^T$. Because the function is not convex, and there exists different local optimum.
+
+
+#### Broyden-Fletcher-Goldfarb-Shanno (BFGS)
+
+Algorithm:
+
+<img src="pics/demo/bfgs.jpg" style="zoom:20%;" />
+
+Example function:
+
+$f(\mathbf{x}) = (3-x_1)^2+7(x_2-x_1^2)^2+9(x_3-x_1-x_2^2)^2$
+
+Code: bfgs.py
+
+
+#### Limited-Memory BFGS
+
+Algorithm:
+
+<img src="pics/demo/lbfgs.jpg" style="zoom:20%;" />
+
+Example function: Rosenbrock function.
+
+Code: lbfgs.py
+
+Note: Wolfe conditions in line search is not implemented. May be bugs in the code.
+
+<img src="pics/hw9/lbfgs-1.png" style="zoom:40%;" />
+<img src="pics/hw9/lbfgs-5.png" style="zoom:40%;" />
+<img src="pics/hw9/lbfgs-10.png" style="zoom:40%;" />
+<img src="pics/hw9/lbfgs-30.png" style="zoom:40%;" />
+
+
+### Majorization Minimization
+
+Algorithm:
+
+<img src="pics/demo/majorization.jpg" style="zoom:20%;" />
+
+Code: major.py
