@@ -42,7 +42,7 @@ Steepest descent algorithm in $l_\infty$-norm.
 
 $\Delta\mathbf{x}_{nsd}=\arg\min_\mathbf{v}\{\nabla f(\mathbf{x})^T\mathbf{v}|\|\mathbf{v}\|_\infty=1\}$
 
-Set $\Delta{\mathbf{x}_{i}} = -sign(\nabla f(\mathbf{x})_i)$ if $i = \arg\max_i\|\nabla f(\mathbf{x})_i\|$.
+Set $\Delta{\mathbf{x}_{i}} = -sign(\nabla f(\mathbf{x})_i)$.
 
 <img src="pics/demo/steepest_descent.jpg" style="zoom: 33%;" />
 

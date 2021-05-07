@@ -50,9 +50,7 @@ def steepest_descent(x, func, grad_func, alpha=0.5, beta=0.9):
     grad_list, step_list, f_list = [], [], []
     while True:
         grad = grad_func(x)
-        dir = np.zeros(grad.shape)
-        i = np.argmax(np.abs(grad))
-        dir[i] = -grad[i]
+        dir = -np.sign(grad)
         g_norm = norm(grad)
         if g_norm <= ETA:       # stop criteria
             break
