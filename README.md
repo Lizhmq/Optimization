@@ -4,7 +4,7 @@
 
 Gradient descent algorithm with backtracking line search.
 
-<img src="pics/demo/gradient_descent.jpg" style="zoom:20%;" />
+<img src="pics/demo/gradient_descent.jpg" style="zoom:30%;" />
 <img src="pics/demo/backtracking.jpg" style="zoom: 20%;" />
 
 Example function:
@@ -87,7 +87,7 @@ Plot figures:
 
 #### Damped Newton Method
 
-<img src="pics/demo/damped_newton.jpg" alt="Damped Newtion" style="zoom:20%;" />
+<img src="pics/demo/damped_newton.jpg" alt="Damped Newtion" style="zoom:30%;" />
 
 Example function:
 $$f(\mathbf{x}) = 100(x_2-x_1^2)^2+(1-x_1)^2$$
@@ -117,7 +117,7 @@ Damped Newton time: 0.0020020008087158203s
 
 #### Gauss-Newton Method
 
-<img src="pics/demo/gauss_newton.jpg" style="zoom:20%;" />
+<img src="pics/demo/gauss_newton.jpg" style="zoom:30%;" />
 
 ```python
 dir = -solve_linear(np.dot(J(x).T, J(x)), np.dot(J(x).T, r(x)))
@@ -136,7 +136,7 @@ The algorithm converges in 3 steps.
 
 Algorithm:
 
-<img src="pics/demo/quasi-dfp.jpg" style="zoom:20%;" />
+<img src="pics/demo/quasi-dfp.jpg" style="zoom:30%;" />
 
 Example function:
 
@@ -151,7 +151,7 @@ The initial point $(0,0)^T$ converges to $(-1, 0)^T$ while $(1.5, 1)^T$ converge
 
 Algorithm:
 
-<img src="pics/demo/bfgs.jpg" style="zoom:20%;" />
+<img src="pics/demo/bfgs.jpg" style="zoom:30%;" />
 
 Example function:
 
@@ -164,7 +164,7 @@ Code: bfgs.py
 
 Algorithm:
 
-<img src="pics/demo/lbfgs.jpg" style="zoom:20%;" />
+<img src="pics/demo/lbfgs.jpg" style="zoom:30%;" />
 
 Example function: Rosenbrock function.
 
@@ -182,6 +182,15 @@ Note: Wolfe conditions in line search is not implemented. May be bugs in the cod
 
 Algorithm:
 
-<img src="pics/demo/majorization.jpg" style="zoom:20%;" />
+<img src="pics/demo/majorization.jpg" style="zoom:30%;" />
 
 Code: major.py
+
+Example function: $\frac{1}{2}\|\mathbf{Ax}-\mathbf{b}\|^2 + \lambda \|\mathbf{x}\|_1$.
+
+Majorant function1: Lipschitz gradient majorant function of the first term.
+
+Majorant function2:  $\min_{\mathbf{d}>\mathbf{0}}\frac{1}{2}(\mathbf{x}^T\mathbf{D}\mathbf{x}+\mathbf{1}^T\mathbf{D}^{-1}\mathbf{1})$ for $\lambda \|\mathbf{x}\|_1$.
+
+<img src="pics/hw9/major1.png" style="zoom:40%;" />
+<img src="pics/hw9/major2.png" style="zoom:40%;" />

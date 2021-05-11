@@ -32,12 +32,13 @@ def check_grad(x, func, grad_func):
 
 
 set_seed(233)
-alpha = 0.08
+alpha = 0.01
 ETA = 1e-5
 A = np.random.normal(size=(N, N))
 A = (A + A.T) / 2
 b = np.random.normal(size=(N,))
-lambd = 0.1
+# lambd = 0.1
+lambd = 1
 
 
 def func(x):
@@ -46,20 +47,44 @@ def func(x):
     return v1 + v2
 
 def grad_func(x):
-    return grad1(x) + lambd * np.sign(x)
+    si = np.sign(x)
+    g = grad1(x)
+    g2 = g + lambd * si
+    for i in range(len(x)):     # smoothness
+        if np.abs(x[i]) < 1e-4:
+            if np.abs(g[i]) < np.abs(lambd):
+                g2[i] = 0
+    return g2
 
 def grad1(x):
     return np.dot(A.T, np.dot(A, x) - b)
 
-def geng1(x0, alpha=0.02):
+def geng1(x0):
     # def f(x):
     #     v1 = func(x0)
     #     v2 = np.dot(grad1(x0), x - x0)
     #     v3 = 1 / (2 * alpha) * np.dot(x - x0, x - x0)
     #     return v1 + v2 + v3
     # return f
+    global alpha
     g = grad1(x0)
-    return x0 - alpha * g
+    m = x0 - alpha * g
+    for i in range(len(m)):
+        if m[i] + alpha * lambd < 0:
+            m[i] += alpha * lambd
+        elif m[i] - alpha * lambd > 0:
+            m[i] -= alpha * lambd
+        else:
+            m[i] = 0
+    return m
+
+def geng2(x0):
+    global alpha
+    D = np.diag(x0)
+    mat = np.dot(A.T, A) + lambd * np.linalg.inv(D)
+    ret = np.linalg.solve(mat, np.dot(A.T, b))
+    return ret
+
 
 def check_grad():
     x0 = np.random.normal(size=(N))
@@ -75,7 +100,6 @@ def check_grad():
 
 def majorization(x, func, gradf, geng):
     f_list, x_list, g_list = [], [], []
-    global alpha
     while True:
         grad = gradf(x)
         f = func(x)
@@ -86,9 +110,7 @@ def majorization(x, func, gradf, geng):
         if norm(grad) < ETA:
             break
         newx = geng(x)
-        # res = optimize.minimize(g, x, method="BFGS")
-        if norm(newx - x) < ETA:
-            alpha = alpha / 2
+        print("x", newx)
         x = newx
         print(f)
         print(norm(grad))
@@ -99,9 +121,20 @@ def majorization(x, func, gradf, geng):
 
 x = -np.ones(N)
 fl, xl, gl = majorization(x, func, grad_func, geng1)
-# plt.figure(figsize=(6, 4))
-# plt.plot(list(range(len(gl))), [v - P_STAR for v in fl])
-# plt.xlabel("steps")
-# plt.ylabel("f-p*")
-# plt.title(f"Memory step: {s}")
-# plt.savefig(f"lbfgs-{s}.png", bbox_inches="tight")
+P_STAR = fl[-1]
+
+plt.figure(figsize=(6, 4))
+plt.plot(list(range(len(gl))), [v - P_STAR for v in fl])
+plt.xlabel("steps")
+plt.ylabel("f-p*")
+plt.savefig(f"test.png", bbox_inches="tight")
+
+
+fl, xl, gl = majorization(x, func, grad_func, geng2)
+P_STAR = fl[-1]
+
+plt.figure(figsize=(6, 4))
+plt.plot(list(range(len(gl))), [v - P_STAR for v in fl])
+plt.xlabel("steps")
+plt.ylabel("f-p*")
+plt.savefig(f"test2.png", bbox_inches="tight")
